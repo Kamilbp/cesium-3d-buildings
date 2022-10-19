@@ -85,31 +85,6 @@ tileset.readyPromise
     console.log(error);
   });
 
-// // funkcje wykonywanie podczas ładowania tilesetu
-// tileset.readyPromise
-//   .then(function (tileset) {
-
-//     // dodanie tilesetu do sceny
-
-
-//     // zbliżenie do tilesetu
-//     viewer.zoomTo(
-//       tileset,
-//       new Cesium.HeadingPitchRange(
-//         0.0,
-//         -0.5,
-//         0.0
-//       )
-//     );
-    
-    
-
-
-  // })
-  // .catch(function (error) {
-  //   console.log(error);
-  // });
-
 
   let tilesetAnimation = new Cesium.Cesium3DTileset({
     url: Cesium.IonResource.fromAssetId(1362952),
@@ -146,42 +121,7 @@ tilesetAnimation.readyPromise
   .catch(function (error) {
     console.log(error);
   });
-// // funkcje wykonywanie podczas ładowania tilesetu
-// tilesetAnimation.readyPromise
-//   .then(function (tileset) {
-//     let boundingSphere = tilesetAnimation.boundingSphere;
-//     let range = Math.max(100.0 - boundingSphere.radius, 0.0);
-//     let properties = tileset.properties;
-//     // dodanie tilesetu do sceny
-//     scene.primitives.add(tileset);
 
-//     // zbliżenie do tilesetu
-//     viewer.zoomTo(
-//       tileset,
-//       new Cesium.HeadingPitchRange(
-//         0.0,
-//         -0.5,
-//         range
-//       )
-//     );
-    
-//     if (Cesium.defined(properties) && Cesium.defined(properties.rok_budowy)) {
-//       tilesetAnimation.style = new Cesium.Cesium3DTileStyle({
-//         color: "rgb(3,78,123)",
-//         show: {
-//           conditions: [
-//             ["${rok_budowy} === null", 'false'],
-//             ['${rok_budowy} >= 1850', 'false']
-//           ]
-//         }
-//       });
-//     }
-  
-//   }).otherwise(function (error) {
-//     throw (error);
-//   });
-// // const inspectorViewModel = viewer.cesium3DTilesInspector.viewModel;
-// // // const handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
 
 var heightInterval;
 
@@ -256,7 +196,7 @@ buttonStop.addEventListener("click", function () {
 
 function timelineAnimation(year) {
   console.log("timelineAnimation Started!! %d", year);
-	// animate buildings (show, color) based on current year on timeline and animate height of buildings
+	
 	currentYear = parseInt(year); // convert to int incase it's a string
   
 
@@ -266,8 +206,6 @@ function timelineAnimation(year) {
 	// change displayed year in the UI
 	document.getElementById("timeline-count").innerHTML = year;
 
-		// built condition for buildings that have not been built yet
-		// TODO: replace BAUJAHR everywhere with the respective year attribute in your dataset
 		var condition = "${rok_budo_1} > " + (currentYear-5) + "";
     console.log(currentYear);
 
@@ -360,81 +298,7 @@ function animateHeight() {
 	}.bind(this), 50);
 
 	return heightInterval;
-
 }
-
-
-// // let val = 5
-// // let slider = document.getElementById("myRange").oninput = function() {
-// //   val = this.value;
-// //   console.log(val);
-// //   tileset.style = new Cesium.Cesium3DTileStyle();
-// //   if (val>50){
-// //     tileset.style.color = 'color("red")';
-// //   }
-// // };
-
-
-
-//   Cesium.knockout
-//   .getObservable(viewModel, "height")
-//   .subscribe(function (height) {
-//     height = Number(height);
-//     if (isNaN(height)) {
-//       return;
-//     }
-
-//     const cartographic = Cesium.Cartographic.fromCartesian(
-//       tileset.boundingSphere.center
-//     );
-//     const surface = Cesium.Cartesian3.fromRadians(
-//       cartographic.longitude,
-//       cartographic.latitude,
-//       0.0
-//     );
-//     const offset = Cesium.Cartesian3.fromRadians(
-//       cartographic.longitude,
-//       cartographic.latitude,
-//       height
-//     );
-//     const translation = Cesium.Cartesian3.subtract(
-//       offset,
-//       surface,
-//       new Cesium.Cartesian3()
-//     );
-//     tileset.modelMatrix = Cesium.Matrix4.fromTranslation(translation);
-//   });
-
-// // tileset.readyPromise.then(function(tileset) {
-// //     console.log("STARTING!!");
-
-// //     var boundingSphere = tileset.boundingSphere;
-// //     viewer.camera.viewBoundingSphere(boundingSphere, new Cesium.HeadingPitchRange(0, -2.0, 0));
-// //     viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
-// //     // Position tileset
-// //     var cartographic = Cesium.Cartographic.fromCartesian(boundingSphere.center);
-// //     var surface = Cesium.Cartesian3.fromRadians(cartographic.longitude, cartographic.latitude, 0.0);
-// //     var offset = Cesium.Cartesian3.fromRadians(cartographic.longitude, cartographic.latitude, heightOffset);
-// //     var translation = Cesium.Cartesian3.subtract(offset, surface, new Cesium.Cartesian3());
-// //     tileset.modelMatrix = Cesium.Matrix4.fromTranslation(translation);
-// //     console.log(tileset.modelMatrix);
-// // });
-// //viewer.scene.primitives.heightReference = heightReference;
-
-
-// // tileset.style = new Cesium.Cesium3DTileStyle({
-// //     // Set the default color style for this particular 3D Tileset.
-// //     // For any building that has a `cesium#color` property, use that color, otherwise make it white.
-// //     color: {
-// //       conditions: [
-// //         ["${feature['Height']} >20 ", "color('red', 0)"],
-// //         ["${feature['Height']} > 10 ", "color('yellow', 0)"],
-// //         ["${feature['Height']} < 10 ", "color('#14d4ff')"],
-// //       ],
-// //     }
-// //   });
-// // }
-
 
 // viewer.screenSpaceEventHandler.setInputAction(function onLeftClick(movement) {
 //    const pickedFeature = viewer.scene.pick(movement.position);
